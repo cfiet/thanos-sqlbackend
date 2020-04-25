@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: "jdc:h2:mem:testdb"
+    driverClassName: "org.h2.Driver"
+    username: sa
+    hikari:
+      minimum-idle: 1
+      pool-name: "Test-Database-Pool"
+
+logging:
+  level:
+    root: DEBUG
