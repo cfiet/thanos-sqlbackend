@@ -1,0 +1,8 @@
+version: '3'
+services:
+  thanos-query:
+    image: "thanosio/thanos:v0.12.2"
+    ports:
+      - "9090:9090"
+    environment: {}
+    entrypoint: "/bin/thanos query --http-address 0.0.0.0:9090 --store host.docker.internal:6565"
