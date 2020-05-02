@@ -18,25 +18,21 @@ java {
 
 dependencies {
     implementation "com.google.protobuf:protobuf-java:3.11.4"
+    implementation "io.grpc:grpc-protobuf:1.29.0"
+    implementation "io.grpc:grpc-stub:1.29.0"
+
+    testImplementation "io.grpc:grpc-testing:1.29.0"
 }
 
 protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.0.0"
-    }
+    protoc { artifact = "com.google.protobuf:protoc:3.11.0" }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:0.0.0-pre2"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.29.0"
         }
     }
     generateProtoTasks {
-        ofSourceSet("grpc").forEach { task ->
-            task.plugins {
-                id("grpc") {
-                    outputSubDir = "grpc_output"
-                }
-            }
-            task.generateDescriptorSet = true
-        }
+        all()*.plugins { grpc {} }
     }
 }
+
