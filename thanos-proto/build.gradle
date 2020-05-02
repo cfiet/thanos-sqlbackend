@@ -1,0 +1,42 @@
+plugins {
+    id 'com.google.protobuf'
+    id 'java'
+    id 'idea'
+}
+
+group = "net.cfiet"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    implementation "com.google.protobuf:protobuf-java:3.11.4"
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.0.0"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:0.0.0-pre2"
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet("grpc").forEach { task ->
+            task.plugins {
+                id("grpc") {
+                    outputSubDir = "grpc_output"
+                }
+            }
+            task.generateDescriptorSet = true
+        }
+    }
+}
